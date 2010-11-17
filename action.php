@@ -41,7 +41,7 @@ class action_plugin_tablewidth extends DokuWiki_Action_Plugin {
      */
     function replaceComments(&$event, $param) {
         if ($event->data[0] == 'xhtml') {
-            $pattern = '/(<!-- table-width [^\n]+? -->\n)(\s*<table.*?>)(\s*<t)/';
+            $pattern = '/(<!-- table-width [^\n]+? -->\n)([^\n]*<table.*?>)(\s*<t)/';
             $flags = PREG_SET_ORDER | PREG_OFFSET_CAPTURE;
             if (preg_match_all($pattern, $event->data[1], $match, $flags) > 0) {
                 $start = 0;
@@ -76,7 +76,7 @@ class action_plugin_tablewidth extends DokuWiki_Action_Plugin {
      * Add width style to the table
      */
     function _styleTable($html, $width) {
-        preg_match('/^(\s*<table)(.*?)(>)$/', $html, $match);
+        preg_match('/^([^\n]*<table)(.*?)(>)$/', $html, $match);
         $entry = $match[1];
         $attributes = $match[2];
         $exit = $match[3];
