@@ -21,17 +21,6 @@ class syntax_plugin_tablewidth extends DokuWiki_Syntax_Plugin {
         $this->mode = substr(get_class($this), 7);
     }
 
-    function getInfo() {
-        return array(
-            'author' => 'Mykola Ostrovskyy',
-            'email'  => 'spambox03@mail.ru',
-            'date'   => '2009-02-14',
-            'name'   => 'Table Width Plugin',
-            'desc'   => 'Allows to specify width of table columns.',
-            'url'    => 'http://code.google.com/p/dwp-forge/'
-        );
-    }
-
     function getType() {
         return 'substition';
     }

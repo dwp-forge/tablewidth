@@ -16,20 +16,6 @@ require_once(DOKU_PLUGIN . 'action.php');
 class action_plugin_tablewidth extends DokuWiki_Action_Plugin {
 
     /**
-     * Return some info
-     */
-    function getInfo() {
-        return array(
-            'author' => 'Mykola Ostrovskyy',
-            'email'  => 'spambox03@mail.ru',
-            'date'   => '2009-02-14',
-            'name'   => 'Table Width',
-            'desc'   => 'Allows to specify width of table columns.',
-            'url'    => 'http://code.google.com/p/dwp-forge/',
-        );
-    }
-
-    /**
      * Register callbacks
      */
     function register(&$controller) {
