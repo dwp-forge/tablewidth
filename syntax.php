@@ -39,10 +39,20 @@ class syntax_plugin_tablewidth extends DokuWiki_Syntax_Plugin {
 
     function handle($match, $state, $pos, &$handler) {
         if ($state == DOKU_LEXER_SPECIAL) {
-            if (preg_match('/\|<\s*(.+?)\s*>\|/', $match, $match) != 1) {
+            if (preg_match('/(\s*)\|<\s*(.+?)\s*>\|/', $match, $match) != 1) {
                 return false;
             }
-            return array($match[1]);
+            /* HACK: In Binky release table entry pattern became so greedy, that in ordere to compete 
+             * with it TW has to consume all leading new line characters. This breaks detection of table
+             * end on a table immediately preceding the one with TW syntax. Here we detect if we are in
+             * the middle of a table and there was an empty line in front of TW, and then force-close
+             * the previous table. Ugly. See https://bugs.dokuwiki.org/index.php?do=details&task_id=1833
+             */
+            if (substr_count($match[1], "\n") > 1 && $handler->CallWriter instanceof Doku_Handler_Table) {
+                $handler->table("", DOKU_LEXER_EXIT, $pos);
+                $this->Lexer->_mode->leave();
+            }
+            return array($match[2]);
         }
         return false;
     }
