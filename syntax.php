@@ -37,7 +37,7 @@ class syntax_plugin_tablewidth extends DokuWiki_Syntax_Plugin {
         $this->Lexer->addSpecialPattern('[\t ]*\n\|<[^\n]+?>\|(?=\s*?\n[|^])', $mode, $this->mode);
     }
 
-    function handle($match, $state, $pos, &$handler) {
+    function handle($match, $state, $pos, Doku_Handler $handler) {
         if ($state == DOKU_LEXER_SPECIAL) {
             if (preg_match('/\|<\s*(.+?)\s*>\|/', $match, $match) != 1) {
                 return false;
@@ -47,7 +47,7 @@ class syntax_plugin_tablewidth extends DokuWiki_Syntax_Plugin {
         return false;
     }
 
-    function render($mode, &$renderer, $data) {
+    function render($mode, Doku_Renderer $renderer, $data) {
         if ($mode == 'xhtml') {
             $renderer->doc .= '<!-- table-width ' . $data[0] . ' -->' . DOKU_LF;
             return true;

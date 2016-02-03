@@ -18,7 +18,7 @@ class action_plugin_tablewidth extends DokuWiki_Action_Plugin {
     /**
      * Register callbacks
      */
-    function register(&$controller) {
+    function register(Doku_Event_Handler $controller) {
         $controller->register_hook('RENDERER_CONTENT_POSTPROCESS', 'AFTER', $this, 'replaceComments');
     }
 
