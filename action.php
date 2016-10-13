@@ -66,11 +66,12 @@ class action_plugin_tablewidth extends DokuWiki_Action_Plugin {
         $entry = $match[1];
         $attributes = $match[2];
         $exit = $match[3];
+        $widthStyle = 'min-width: 0px; width: ' . $width . ';';
         if (preg_match('/(.*?style\s*=\s*(["\']).*?)(\2.*)/', $attributes, $match) == 1) {
-            $attributes = $match[1] . ';width: ' . $width . ';' . $match[3];
+            $attributes = $match[1] . '; ' . $widthStyle . $match[3];
         }
         else {
-            $attributes .= ' style="width: ' . $width . ';"';
+            $attributes .= ' style="' . $widthStyle . '"';
         }
         return $entry . $attributes . $exit;
     }
