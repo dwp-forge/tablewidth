@@ -15,43 +15,47 @@ require_once(DOKU_PLUGIN . 'syntax.php');
 
 class syntax_plugin_tablewidth extends DokuWiki_Syntax_Plugin {
 
-    var $mode;
+    private $mode;
 
-    function syntax_plugin_tablewidth() {
+    public function __construct() {
         $this->mode = substr(get_class($this), 7);
     }
 
-    function getType() {
+    public function getType() {
         return 'container';
     }
 
-    function getPType() {
+    public function getPType() {
         return 'block';
     }
 
-    function getSort() {
+    public function getSort() {
         return 5;
     }
 
-    function connectTo($mode) {
+    public function connectTo($mode) {
         $this->Lexer->addSpecialPattern('[\t ]*\n\|<[^\n]+?>\|(?=\s*?\n[|^])', $mode, $this->mode);
     }
 
-    function handle($match, $state, $pos, Doku_Handler $handler) {
+    public function handle($match, $state, $pos, Doku_Handler $handler) {
         if ($state == DOKU_LEXER_SPECIAL) {
             if (preg_match('/\|<\s*(.+?)\s*>\|/', $match, $match) != 1) {
                 return false;
             }
+
             return array($match[1]);
         }
+
         return false;
     }
 
-    function render($mode, Doku_Renderer $renderer, $data) {
+    public function render($mode, Doku_Renderer $renderer, $data) {
         if ($mode == 'xhtml') {
             $renderer->doc .= '<!-- table-width ' . $data[0] . ' -->' . DOKU_LF;
+
             return true;
         }
+
         return false;
     }
 }
