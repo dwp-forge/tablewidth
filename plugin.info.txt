@@ -1,6 +1,6 @@
 base   tablewidth
 author Mykola Ostrovskyy
-email  spambox03@mail.ru
+email  dwpforge@gmail.com
 date   2016-10-13
 name   Table Width Plugin
 desc   Allows to specify width of table columns.
